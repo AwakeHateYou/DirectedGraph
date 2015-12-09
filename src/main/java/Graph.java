@@ -130,6 +130,11 @@ public class Graph {
         }
     }
 
+    /**
+     * Convert matrix from string to double
+     * replace i=j elements to 0 and "-" value to Integer.MAX_VALUE/2
+     * @throws NumberFormatException
+     */
     private void prepareAdjacencyMatrix() throws Exception {
         for (int i = 0; i < size; ++i) {
             for (int j = 0; j < size; ++j) {
@@ -179,6 +184,10 @@ public class Graph {
         }
     }
 
+    /**
+     * Create distence and parents matrix from source matrix.
+     * Need fo Floyd algorithm.
+     */
     private void algorithmFloyd(){
         for (int k = 0; k < size; ++k) {
             for (int i = 0; i < size; ++i) {
@@ -191,6 +200,12 @@ public class Graph {
             }
         }
     }
+
+    /**
+     * Generate shortest path and write to ArrayList.
+     * @param vertex - final position
+     * @param start - start position
+     */
     void path(int vertex, int start)
     {
         if (vertex == start)
