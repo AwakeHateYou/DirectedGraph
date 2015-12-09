@@ -2,9 +2,21 @@ import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 import java.util.ArrayList;
 
-
 /**
- * Created by Awake on 20.09.2015.
+ * Name of the project:  Directed graph.
+ * Description:
+ *
+ * Full name of the class: Direct Graph.
+ * Class description:    Class for working with files.
+ *                       It's can write graph and info about graph to the file,
+ *                       read file to the string and print
+ *                       graph and info about graph to console.
+ *                       If a null object parameter is passed to any method,
+ *                       then a NullPointerException will be thrown.
+ *                       If an error occurs Input Output, then a IOException
+ *                       will be thrown.
+ * @author Eveny Terentyev.
+ * Group: IVT-42BO.
  */
 public class Graph {
 
@@ -12,6 +24,7 @@ public class Graph {
      * Adjacency matrix.
      */
     private String[][] matrix;
+    final static double EPSILON =  1E-5;
 
     public ArrayList<String> getOutString() {
         return outString;
@@ -23,7 +36,7 @@ public class Graph {
     /**
      * Matrix with shortest distance.
      */
-    private int[][] distance;
+    private double[][] distance;
 
     /**
      * Matrix with paths.
@@ -59,7 +72,7 @@ public class Graph {
     private void graphBuilder(String[] sourse) {
         int j = 0;
         matrix = new String[size][size];
-        distance = new int[size][size];
+        distance = new double[size][size];
         parents = new int[size][size];
         for (String line : sourse) {
             String[] splitLine = line.split(" ");
@@ -126,7 +139,7 @@ public class Graph {
                     if (matrix[i][j].equals("-")) {
                         distance[i][j] = INFINITY;
                     } else {
-                        distance[i][j] = Integer.parseInt(matrix[i][j]);
+                        distance[i][j] = Double.parseDouble(matrix[i][j]);
                     }
                 }
                 parents[i][j] = i;
@@ -170,7 +183,7 @@ public class Graph {
         for (int k = 0; k < size; ++k) {
             for (int i = 0; i < size; ++i) {
                 for (int j = 0; j < size; ++j) {
-                    if (distance[i][j] > distance[i][k] + distance[k][j]) {
+                    if ((distance[i][j] - EPSILON) > distance[i][k] + distance[k][j]) {
                         distance[i][j] = distance[i][k] + distance[k][j];
                         parents[i][j] = parents[k][j];
                     }
