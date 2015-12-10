@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Created by Awake on 20.09.2015.
  */
@@ -8,11 +10,10 @@ public class Launcher {
     public static final String WRONG_INPUT_FILE = "Wrong format of the input file.";
 
     public Launcher(String input){
-        buildNewGraph(input);
-
+        IOStreamer.infoAboutGraphToConsole(buildNewGraph(input));
     }
     public Launcher(String input, String output){
-
+        IOStreamer.infoAboutGraphToFile(output, buildNewGraph(input));
 
     }
     /**
@@ -41,13 +42,13 @@ public class Launcher {
      * @param input - string with input filename.
      * @return - directed graph.
      */
-    private void buildNewGraph(String input) {
+    private ArrayList<String> buildNewGraph(String input) {
         Parser parser = new Parser(IOStreamer.fileToString(input));
         try {
             parser.parseString();
             graph = new Graph(parser.getLinesSource(), parser.getVertexAmount());
             graph.generateInfoAboutDirectedGraph();
-            IOStreamer.infoAboutGraphToConsole(graph);
+
 
 
         } catch (Exception e) {
@@ -55,6 +56,7 @@ public class Launcher {
                 catchNumberFormatException((NumberFormatException) e);
             }
         }
+        return graph.getOutString();
     }
 
     /**

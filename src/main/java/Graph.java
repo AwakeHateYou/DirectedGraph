@@ -154,7 +154,7 @@ public class Graph {
     public void calculateAllPathsToAllVertex(){
 
         algorithmFloyd();
-        printGraph(matrix);
+        //printGraph(matrix);
         pathAhead();
 
 

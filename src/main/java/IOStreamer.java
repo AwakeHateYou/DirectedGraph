@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 /**
@@ -51,13 +52,12 @@ public class IOStreamer {
     }
 
     /**
-     * Prints sequences and their extra
+     * Prints all info about graph
      * data to console.
      * @param graph - directed graph.
      */
-    public static void infoAboutGraphToConsole(Graph graph) {
-        ArrayList<String> outString = graph.getOutString();
-        for(String line: outString){
+    public static void infoAboutGraphToConsole(ArrayList<String> outStrings) {
+        for(String line: outStrings){
             System.out.print(line);
         }
     }
@@ -68,7 +68,16 @@ public class IOStreamer {
      * @param filename - name of the output file.
      * @param graph - directed graph.
      */
-    public static void infoAboutGraphToFile(String filename, Graph graph) {
+    public static void infoAboutGraphToFile(String filename, ArrayList<String> outStrings) {
+        try {
+            PrintWriter printWriter = new PrintWriter(filename);
+            for (String line : outStrings) {
+                printWriter.print(line);
+            }
+            printWriter.close();
+        } catch (IOException e) {
+            catchIOException(e);
+        }
     }
     private static void catchIOException(IOException e) {
         System.out.println(e.getMessage());
@@ -81,7 +90,7 @@ public class IOStreamer {
      */
     private static void catchNullPointerException() {
         System.out.println(WRONG_INPUT_FILE);
-        //ApplicationLauncher.printHelp();
+        Launcher.printHelp();
         System.exit(0);
     }
 
