@@ -92,8 +92,8 @@ public class IOStreamer {
      * @param e - IOException.
      */
     private static void catchIOException(IOException e) {
-        //System.out.println(e.getMessage());
-        System.out.println(EMPTY_FILE);
+        System.out.println(e.getMessage());
+        System.out.println(WRONG_INPUT_FILE);
         System.exit(0);
     }
 

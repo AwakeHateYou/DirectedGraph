@@ -80,6 +80,9 @@ public class Launcher {
             if (e instanceof NullPointerException){
                 catchNullPointerException();
             }
+            if (e instanceof InputMatrixException){
+                catchInputMatrixExceprion((InputMatrixException) e);
+            }
         }
         return graph.getOutString();
     }
@@ -100,6 +103,11 @@ public class Launcher {
      */
     private static void catchNullPointerException() {
         System.out.println(WRONG_INPUT_FILE);
+        Launcher.printHelp();
+        System.exit(0);
+    }
+    private static void catchInputMatrixExceprion(InputMatrixException e){
+        System.out.println(e.getMessage());
         Launcher.printHelp();
         System.exit(0);
     }

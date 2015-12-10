@@ -96,6 +96,19 @@ public class Parser {
     public void parseString() throws Exception {
         vertexAmount = readVertexAmount();
         removeExtraSpaces();
+        checkInput();
     }
 
+    /**
+     * Check size of input matrix.
+     * @throws Exception - InputMatrixException.
+     */
+    private void checkInput() throws Exception{
+        for (int i = 1; i < vertexAmount; i++){
+            String split[] = linesSource[i].split(" ");
+            if (split.length < vertexAmount){
+                throw new InputMatrixException();
+            }
+        }
+    }
 }
