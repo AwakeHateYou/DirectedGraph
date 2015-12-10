@@ -6,7 +6,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by etere on 10.12.2015.
+ * Name of the project:  Directed graph.
+ * Full name of the class: Parser Test.
+ * Class description:    Unit tests for Parser class.
+ * @author Eveny Terentyev.
+ * Group: IVT-42BO.
  */
 
 public class ParserTest {

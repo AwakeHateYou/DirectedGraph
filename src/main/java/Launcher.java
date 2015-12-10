@@ -1,17 +1,39 @@
 import java.util.ArrayList;
 
 /**
- * Created by Awake on 20.09.2015.
+ * Name of the project:  Directed graph.
+ * Description:          Program reads the data from the input file
+ *                       create directed graph and calculate
+ *                       amount of vertex, lines and connections between vertex
+ *                       and output to the output file or console.
+ *
+ * Full name of the class: Application launcher.
+ * Class description:    Main class. Control activity of all programm.
+ *                       Catch NumberFormatException and
+ *
+
+ * @author Eveny Terentyev.
+ * Group: IVT-42BO.
  */
 public class Launcher {
     private Graph graph;
 
     /** String with wrong input file error message. */
     public static final String WRONG_INPUT_FILE = "Wrong format of the input file.";
-
+    /**
+     * Constructor with one argument.
+     * Called when the output is made in the console.
+     * @param input - string with input filename.
+     */
     public Launcher(String input){
         IOStreamer.infoAboutGraphToConsole(buildNewGraph(input));
     }
+    /**
+     * Constructor with two arguments.
+     * Called when the output is made in the file.
+     * @param input - string with input filename.
+     * @param output - string with output filename.
+     */
     public Launcher(String input, String output){
         IOStreamer.infoAboutGraphToFile(output, buildNewGraph(input));
 
@@ -22,7 +44,10 @@ public class Launcher {
     public static void printHelp(){
         System.out.print(HELP_PAGE);
     }
-
+    /**
+     * Main method. Entry point of the class.
+     * @param args - input arguments.
+     */
     public static void main(String args[]){
         switch(args.length) {
             case 1:
@@ -38,7 +63,7 @@ public class Launcher {
     }
 
     /**
-     * Parse input file and builds new sequences.
+     * Parse input file and builds new graph and his main information.
      * @param input - string with input filename.
      * @return - directed graph.
      */
@@ -69,6 +94,10 @@ public class Launcher {
         Launcher.printHelp();
         System.exit(0);
     }
+
+    /**
+     * Catches NullPointerException.
+     */
     private static void catchNullPointerException() {
         System.out.println(WRONG_INPUT_FILE);
         Launcher.printHelp();

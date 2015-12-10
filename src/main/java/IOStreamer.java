@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Description:          Program reads the data from the input file
  *                       create directed graph and calculate
  *                       amount of vertex, lines and connections between vertex
- *                       and output to the output file or console
+ *                       and output to the output file or console.
  *
  * Full name of the class: Input/Output File Streamer.
  * Class description:    Class for working with files.

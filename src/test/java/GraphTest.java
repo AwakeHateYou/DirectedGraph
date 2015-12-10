@@ -71,6 +71,9 @@ public class GraphTest {
         }
         Assert.assertFalse("Wrong distance", check);
     }
+    /**
+     * Testing generation parents matrix.
+     */
     @Test
     public void testParents(){
         int par[][] = {{0, 0, 0, 0},{1, 1, 1, 1},{2, 2, 2, 2},{3, 3, 3, 3}};
@@ -87,6 +90,9 @@ public class GraphTest {
         }
         Assert.assertFalse("Wrong distance", check);
     }
+    /**
+     * Testing calculation amount lines.
+     */
     @Test
     public void testAmountLines() throws Exception{
         boolean check = true;
@@ -95,6 +101,9 @@ public class GraphTest {
         }
         Assert.assertFalse("Wrong amount lines", check);
     }
+    /**
+     * Testing calculation amount connected lines.
+     */
     @Test
     public void testConnectedAmountLines(){
         int amounts[] = {4, 3, 4, 4};
@@ -109,6 +118,9 @@ public class GraphTest {
         }
         Assert.assertFalse("Wrong amount connected vertex", check);
     }
+    /**
+     * Testing calculation shortest paths.
+     */
     @Test
     public void testFloyd(){
         graph.calculateAllPathsToAllVertex();

@@ -2,15 +2,38 @@ import java.io.File;
 import java.util.ArrayList;
 
 /**
- * Created by etere on 11.10.2015.
+ * Name of the project:  Sequence Builder.
+ * Description:          Program reads the data from the input file
+ *                       create directed graph and calculate
+ *                       amount of vertex, lines and connections between vertex
+ *                       and output to the output file or console
+ *
+ * Full name of the class: Parser.
+ * Class description:    Program reads the input file
+ *                       delete extra spaces, finde amount of vertex
+ *                       and give source string
+ * @author Andrey Martynov.
+ * Group: IVT-42BO.
  */
 public class Parser {
     /** Source string. */
     String source;
+
+    /**
+     * Getter for source string
+     * @return - source string.
+     */
     public String getSource(){return source;}
 
+    /**
+     * Array for source string.
+     */
     String[] linesSource;
 
+    /**
+     * Getter for source array.
+     * @return - source array.
+     */
     public String[] getLinesSource() {
         return linesSource;
     }

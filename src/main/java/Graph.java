@@ -4,17 +4,15 @@ import java.util.ArrayList;
 
 /**
  * Name of the project:  Directed graph.
- * Description:
+ * Description:          Program reads the data from the input file
+ *                       create directed graph and calculate
+ *                       amount of vertex, lines and connections between vertex
+ *                       and output to the output file or console.
  *
- * Full name of the class: Direct Graph.
- * Class description:    Class for working with files.
- *                       It's can write graph and info about graph to the file,
- *                       read file to the string and print
- *                       graph and info about graph to console.
- *                       If a null object parameter is passed to any method,
- *                       then a NullPointerException will be thrown.
- *                       If an error occurs Input Output, then a IOException
- *                       will be thrown.
+ * Full name of the class: Directed graph.
+ * Class description:    Class for working with graph.
+ *                       It's can generate service matrix, and write all information
+ *                       in to ArrayList<String>.
  * @author Eveny Terentyev.
  * Group: IVT-42BO.
  */
@@ -46,11 +44,18 @@ public class Graph {
      */
     private ArrayList<String> outString = new ArrayList<String>();
 
-
+    /**
+     * Getter for distance matrix.
+     * @return - distance matrix.
+     */
     public double[][] getDistance() {
         return distance;
     }
 
+    /**
+     * Getter for parents matrix.
+     * @return - parents matrix.
+     */
     public int[][] getParents() {
         return parents;
     }
@@ -198,11 +203,9 @@ public class Graph {
      */
     public void generateInfoAboutDirectedGraph() throws Exception{
         prepareAdjacencyMatrix();
-
         calculateAmountLines();
         calculateAmountLinesConnectedToVertex();
         calculateAllPathsToAllVertex();
-        printGraph(distance);
 
     }
 
