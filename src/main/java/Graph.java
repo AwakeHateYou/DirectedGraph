@@ -159,6 +159,13 @@ public class Graph {
 
 
     }
+
+    /**
+     * Generate Adjacency Matrix and calculate amount of lines,
+     * amount lines connected to the vector and
+     * all shortest parts to every vertex.
+     * @throws NumberFormatException
+     */
     public void generateInfoAboutDirectedGraph() throws Exception{
         //printGraph(matrix);
         prepareAdjacencyMatrix();
@@ -167,6 +174,11 @@ public class Graph {
         calculateAllPathsToAllVertex();
 
     }
+
+    /**
+     * Write shortest path from every vertex
+     * to every vertex in ArrayList.
+     */
     private void pathAhead(){
         for (int start = 0; start < size; start++) {
             for (int finish = 0; finish < size; ++finish) {
