@@ -6,12 +6,15 @@ import java.util.ArrayList;
 
 /**
  * Name of the project:  Directed graph.
- * Description:
+ * Description:          Program reads the data from the input file
+ *                       create directed graph and calculate
+ *                       amount of vertex, lines and connections between vertex
+ *                       and output to the output file or console
  *
  * Full name of the class: Input/Output File Streamer.
  * Class description:    Class for working with files.
  *                       It's can write graph and info about graph to the file,
- *                       read file to the string and print
+ *                       read file from the string and print
  *                       graph and info about graph to console.
  *                       If a null object parameter is passed to any method,
  *                       then a NullPointerException will be thrown.
@@ -23,7 +26,8 @@ import java.util.ArrayList;
 public class IOStreamer {
     /** String with wrong input file error message. */
     public static final String WRONG_INPUT_FILE = "Wrong format of the input file.";
-
+    /** String with file is empty error message. */
+    public static final String EMPTY_FILE = "File is empty.";
     /**
      * Gets filename and returns contents
      * of the file.
@@ -36,6 +40,9 @@ public class IOStreamer {
             BufferedReader br = new BufferedReader(new FileReader(filename));
             StringBuilder sb = new StringBuilder();
             String line = br.readLine();
+            if (line.isEmpty()){
+                throw new IOException();
+            }
             while (line != null) {
                 sb.append(line);
                 sb.append(System.lineSeparator());
@@ -53,8 +60,8 @@ public class IOStreamer {
 
     /**
      * Prints all info about graph
-     * data to console.
-     * @param graph - directed graph.
+     * to console.
+     * @param outStrings - string with all information about graph.
      */
     public static void infoAboutGraphToConsole(ArrayList<String> outStrings) {
         for(String line: outStrings){
@@ -66,7 +73,7 @@ public class IOStreamer {
      * Prints sequences and their
      * extra data to the file.
      * @param filename - name of the output file.
-     * @param graph - directed graph.
+     * @param outStrings - string with all information about graph.
      */
     public static void infoAboutGraphToFile(String filename, ArrayList<String> outStrings) {
         try {
@@ -79,9 +86,14 @@ public class IOStreamer {
             catchIOException(e);
         }
     }
+
+    /**
+     * Catches IOException.
+     * @param e - IOException.
+     */
     private static void catchIOException(IOException e) {
-        System.out.println(e.getMessage());
-        System.out.println(WRONG_INPUT_FILE);
+        //System.out.println(e.getMessage());
+        System.out.println(EMPTY_FILE);
         System.exit(0);
     }
 

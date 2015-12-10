@@ -20,18 +20,40 @@ import java.util.ArrayList;
  */
 public class Graph {
 
+    public String[][] getMatrix() {
+        return matrix;
+    }
+
     /**
      * Adjacency matrix.
      */
     private String[][] matrix;
+    /**
+     * Small value/
+     */
     final static double EPSILON =  1E-5;
 
+    /**
+     * Get out strings.
+     * @return - out strings.
+     */
     public ArrayList<String> getOutString() {
         return outString;
     }
 
+    /**
+     * Out strings.
+     */
     private ArrayList<String> outString = new ArrayList<String>();
 
+
+    public double[][] getDistance() {
+        return distance;
+    }
+
+    public int[][] getParents() {
+        return parents;
+    }
 
     /**
      * Matrix with shortest distance.
@@ -42,9 +64,6 @@ public class Graph {
      * Matrix with paths.
      */
     private int[][] parents;
-//    private int start;
-//    private int finish;
-
     /**
      *Size of adjacency matrix.
      */
@@ -61,15 +80,15 @@ public class Graph {
      */
     public Graph(String[] source, int size) {
         this.size = size;
-        graphBuilder(source);
+        buildFromSource(source);
     }
 
     /**
      * Create directed graph
      * from Adjacency matrix
-     * @param sourse - list of source string
+     * @param sourse - list of source string.
      */
-    private void graphBuilder(String[] sourse) {
+    private void buildFromSource(String[] sourse) {
         int j = 0;
         matrix = new String[size][size];
         distance = new double[size][size];
@@ -87,7 +106,11 @@ public class Graph {
         }
     }
 
-    public void printGraph(String[][] matrix) {
+    /**
+     * Print graph to the console.
+     * @param matrix - matrix with graph.
+     */
+    public void printGraph(double[][] matrix) {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 System.out.print(matrix[i][j] + " ");
@@ -99,10 +122,10 @@ public class Graph {
 
     /**
      * Calculate amount of lines
-     * in directed graph.
-     * @return - amount of lines
+     * in directed graph and write to ArrayList.
+     * @return - amount of lines.
      */
-    public void calculateAmountLines() throws Exception{
+    public int calculateAmountLines() throws Exception{
         int amount = 0;
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -112,30 +135,36 @@ public class Graph {
             }
         }
         outString.add("Количество дуг = " + String.valueOf(size*size - amount) + "\n");
+        return (size*size - amount);
     }
 
     /**
-     * Calculate amount lines connected to the every vertex.
+     * Calculate amount lines connected to the every vertex
+     * and write to the ArrayList.
+     * @return - array with amounts.
      */
-    public void amountLinesConnectedToVertex(){
+    public int[] calculateAmountLinesConnectedToVertex(){
         int amount = 0;
+        int[] amountLines = new int[size];
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 if (matrix[j][i].equals("-")){
                     amount++;
                 }
             }
+            amountLines[i] = (size-amount);
             outString.add("Количество дуг, входящих в " + String.valueOf(i+1)+ " = " + String.valueOf(size - amount) + "\n");
             amount = 0;
         }
+        return amountLines;
     }
 
     /**
      * Convert matrix from string to double
-     * replace i=j elements to 0 and "-" value to Integer.MAX_VALUE/2
+     * replace i = j elements to 0 and "-" value to Integer.MAX_VALUE/2
      * @throws NumberFormatException
      */
-    private void prepareAdjacencyMatrix() throws Exception {
+    public void prepareAdjacencyMatrix() throws Exception {
         for (int i = 0; i < size; ++i) {
             for (int j = 0; j < size; ++j) {
                 if (i == j) {
@@ -151,13 +180,14 @@ public class Graph {
             }
         }
     }
+
+    /**
+     * Calculate shortest path from every vertex to every vertex
+     * and write to the ArrayList.
+     */
     public void calculateAllPathsToAllVertex(){
-
         algorithmFloyd();
-        //printGraph(matrix);
         pathAhead();
-
-
     }
 
     /**
@@ -167,11 +197,12 @@ public class Graph {
      * @throws NumberFormatException
      */
     public void generateInfoAboutDirectedGraph() throws Exception{
-        //printGraph(matrix);
         prepareAdjacencyMatrix();
+
         calculateAmountLines();
-        amountLinesConnectedToVertex();
+        calculateAmountLinesConnectedToVertex();
         calculateAllPathsToAllVertex();
+        printGraph(distance);
 
     }
 

@@ -73,10 +73,6 @@ public class Parser {
     public void parseString() throws Exception {
         vertexAmount = readVertexAmount();
         removeExtraSpaces();
-       // System.out.println(vertexAmount);
-       // for(String line : linesSource)
-        //    System.out.println(line);
-
     }
 
 }

@@ -20,7 +20,7 @@ public class Launcher {
      * Prints help page.
      */
     public static void printHelp(){
-
+        System.out.print(HELP_PAGE);
     }
 
     public static void main(String args[]){
@@ -48,12 +48,12 @@ public class Launcher {
             parser.parseString();
             graph = new Graph(parser.getLinesSource(), parser.getVertexAmount());
             graph.generateInfoAboutDirectedGraph();
-
-
-
         } catch (Exception e) {
             if (e instanceof NumberFormatException) {
                 catchNumberFormatException((NumberFormatException) e);
+            }
+            if (e instanceof NullPointerException){
+                catchNullPointerException();
             }
         }
         return graph.getOutString();
@@ -69,5 +69,24 @@ public class Launcher {
         Launcher.printHelp();
         System.exit(0);
     }
-
+    private static void catchNullPointerException() {
+        System.out.println(WRONG_INPUT_FILE);
+        Launcher.printHelp();
+        System.exit(0);
+    }
+    /** String with help page. */
+    public static final String HELP_PAGE =
+            "<============================ Help page ============================>\n" +
+                    "Directed graph - a console application that builds\n" +
+                    "from source data new directed graph and all information about it.\n\n" +
+                    "Input parameters: [input.txt][output.txt] - input and output files.\n" +
+                    "You can leave output blank.\n" +
+                    "In this case the output will be on the console.\n\n" +
+                    "\tInput file format:\n" +
+                    "\t\t%d - amount of vertex in graph \n" +
+                    "\t\t%f %f ... - weight of lines \n" +
+                    "\tOutput file format:\n" +
+                    "\t\tnumbers of lines\n" +
+                    "\t\tamount lines from vertex to every vertex\n" +
+                    "\t\tshortest path from every vertex to every vertex\n";
 }
