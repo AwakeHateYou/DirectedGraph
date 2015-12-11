@@ -8,8 +8,8 @@ import java.util.ArrayList;
  *                       and output to the output file or console.
  *
  * Full name of the class: Application launcher.
- * Class description:    Main class. Control activity of all programm.
- *                       Catch NumberFormatException and
+ * Class description:    Main class. Control activity of all program.
+ *                       Catch NumberFormatException and InputMatrixExceprion.
  *
 
  * @author Eveny Terentyev.
