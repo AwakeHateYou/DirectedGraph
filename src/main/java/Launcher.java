@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 /**
  * Name of the project:  Directed graph.
  * Description:          Program reads the data from the input file
@@ -69,7 +67,7 @@ public class Launcher {
                 catchNullPointerException();
             }
             if (e instanceof InputMatrixException){
-                catchInputMatrixExceprion((InputMatrixException) e);
+                catchInputMatrixException((InputMatrixException) e);
             }
             if (e instanceof NotARealNumberException){
                 catchNotARealNumberExceprion((NotARealNumberException) e);
@@ -109,11 +107,17 @@ public class Launcher {
         Launcher.printHelp();
         System.exit(0);
     }
-    private static void catchInputMatrixExceprion(InputMatrixException e){
+    /**
+     * Catches InputMatrixException
+     */
+    private static void catchInputMatrixException(InputMatrixException e){
         System.out.println(e.getMessage());
         Launcher.printHelp();
         System.exit(0);
     }
+    /**
+     * Catches NullPointerException.
+     */
     private static void catchNotARealNumberExceprion(NotARealNumberException e){
         System.out.println(e.getMessage());
         Launcher.printHelp();
