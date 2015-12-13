@@ -225,7 +225,7 @@ public class Graph {
         //printGraph(matrix);
         prepareAdjacencyMatrix();
         amountLines = calculateAmountLines();
-        calculateAmountLinesConnectedToVertex();
+        amountLinesConnectedVector = calculateAmountLinesConnectedToVertex();
         calculateAllPathsToAllVertex();
 
     }

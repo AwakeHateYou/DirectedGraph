@@ -96,6 +96,7 @@ public class GraphTest {
     @Test
     public void testAmountLines() throws Exception{
         boolean check = true;
+        System.out.println(graph.getAmountLines());
         if (graph.calculateAmountLines() == 15){
             check = false;
         }
