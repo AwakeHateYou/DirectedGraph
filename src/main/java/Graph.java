@@ -1,3 +1,4 @@
+import javafx.util.Pair;
 import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 import java.util.ArrayList;
@@ -35,14 +36,14 @@ public class Graph {
      * Get out strings.
      * @return - out strings.
      */
-    public ArrayList<String> getOutString() {
-        return outString;
+    public int[] getAmoountLinesConnectedVector() {
+        return amoountLinesConnectedVector;
     }
 
     /**
      * Out strings.
      */
-    private ArrayList<String> outString = new ArrayList<String>();
+    private int[] amoountLinesConnectedVector;
 
     /**
      * Getter for distance matrix.
@@ -78,6 +79,18 @@ public class Graph {
      */
     private int INFINITY = Integer.MAX_VALUE / 2;
 
+    /**
+     * Get amount lines;
+     * @return amount lines.
+     */
+    public int getAmountLines() {
+        return amountLines;
+    }
+
+    /**
+     * Count with amount lines.
+     */
+    private int amountLines;
     /**
      * Constructor.
      * @param source - list of source string
@@ -137,7 +150,6 @@ public class Graph {
                 }
             }
         }
-        outString.add("Количество дуг = " + String.valueOf(size*size - amount) + "\n");
         return (size*size - amount);
     }
 
@@ -148,18 +160,17 @@ public class Graph {
      */
     public int[] calculateAmountLinesConnectedToVertex(){
         int amount = 0;
-        int[] amountLines = new int[size];
+        amoountLinesConnectedVector = new int[size];
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 if (matrix[j][i].equals("-")){
                     amount++;
                 }
             }
-            amountLines[i] = (size-amount);
-            outString.add("Количество дуг, входящих в " + String.valueOf(i+1)+ " = " + String.valueOf(size - amount) + "\n");
+            amoountLinesConnectedVector[i] = (size-amount);
             amount = 0;
         }
-        return amountLines;
+        return amoountLinesConnectedVector;
     }
 
     /**
@@ -204,7 +215,7 @@ public class Graph {
     public void generateInfoAboutDirectedGraph() throws Exception{
         printGraph(matrix);
         prepareAdjacencyMatrix();
-        calculateAmountLines();
+        amountLines = calculateAmountLines();
         calculateAmountLinesConnectedToVertex();
         calculateAllPathsToAllVertex();
 
@@ -219,13 +230,14 @@ public class Graph {
             for (int finish = 0; finish < size; ++finish) {
                 if (start != finish) {
                     if (distance[start][finish] < INFINITY) {
-                        outString.add("Путь из " + String.valueOf(start + 1)+ " в " + String.valueOf(finish + 1) + " =");
+                       // outString.add("Путь из " + String.valueOf(start + 1)+ " в " + String.valueOf(finish + 1) + " =");
 
                         path(finish, start);
-                        outString.add("\n");
+                        //outString.add("\n");
 
                     } else
-                        outString.add("Пути из " + String.valueOf(start + 1) + " в " + String.valueOf(finish + 1) + " нет\n");
+                        ;
+                       // outString.add("Пути из " + String.valueOf(start + 1) + " в " + String.valueOf(finish + 1) + " нет\n");
                 }
             }
         }
@@ -257,12 +269,12 @@ public class Graph {
     {
         if (vertex == start)
         {
-            outString.add(" " + String.valueOf(vertex + 1));
+            //outString.add(" " + String.valueOf(vertex + 1));
         }
         else
         {
             path(parents[start][vertex], start);
-            outString.add(" " + String.valueOf(vertex + 1));
+            //outString.add(" " + String.valueOf(vertex + 1));
         }
     }
 }

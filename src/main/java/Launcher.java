@@ -82,12 +82,12 @@ public class Launcher {
      * @param input - string with input filename.
      * @return - directed graph.
      */
-    private ArrayList<String> buildNewGraph(String input) throws Exception {
+    private Graph buildNewGraph(String input) throws Exception {
         Parser parser = new Parser(IOStreamer.fileToString(input));
         parser.parseString();
         graph = new Graph(parser.getLinesSource(), parser.getVertexAmount());
         graph.generateInfoAboutDirectedGraph();
-        return graph.getOutString();
+        return graph;
     }
 
     /**

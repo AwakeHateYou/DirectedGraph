@@ -1,3 +1,5 @@
+import javafx.util.Pair;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -51,11 +53,12 @@ public class IOStreamer {
     /**
      * Prints all info about graph
      * to console.
-     * @param outStrings - string with all information about graph.
+     * @param graph - directed graph.
      */
-    public static void infoAboutGraphToConsole(ArrayList<String> outStrings) {
-        for(String line: outStrings){
-            System.out.print(line);
+    public static void infoAboutGraphToConsole(Graph graph) {
+        System.out.format("Количество дуг = %d\n", graph.getAmountLines());
+        for (int i = 0; i < graph.getAmoountLinesConnectedVector().length; i++){
+            System.out.format("Количество дуг, входящих в %d = %d\n", (i + 1), graph.getAmoountLinesConnectedVector()[i]);
         }
     }
 
@@ -63,14 +66,14 @@ public class IOStreamer {
      * Prints sequences and their
      * extra data to the file.
      * @param filename - name of the output file.
-     * @param outStrings - string with all information about graph.
+     * @param graph - directed graph.
      * @throws IOException
      */
-    public static void infoAboutGraphToFile(String filename, ArrayList<String> outStrings) throws Exception {
-            PrintWriter printWriter = new PrintWriter(filename);
-            for (String line : outStrings) {
-                printWriter.print(line);
-            }
-            printWriter.close();
+    public static void infoAboutGraphToFile(String filename, Graph graph) throws Exception {
+//            PrintWriter printWriter = new PrintWriter(filename);
+//            for (String line : outStrings) {
+//                printWriter.print(line);
+//            }
+//            printWriter.close();
     }
 }
