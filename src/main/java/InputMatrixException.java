@@ -11,7 +11,7 @@
  */
 public class InputMatrixException extends Exception{
     /** String with error message. */
-    private static final String ERROR_MESSAGE = "Wrong size of input file";
+    private static final String ERROR_MESSAGE = "Wrong format of input file";
 
     /**
      * Default constructor.

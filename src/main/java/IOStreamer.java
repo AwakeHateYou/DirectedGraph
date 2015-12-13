@@ -24,35 +24,27 @@ import java.util.ArrayList;
  * Group: IVT-42BO.
  */
 public class IOStreamer {
-    /** String with wrong input file error message. */
-    public static final String WRONG_INPUT_FILE = "Wrong format of the input file.";
     /**
      * Gets filename and returns contents
      * of the file.
      * @param filename - name of the input file.
      * @return - new string with file contents.
      */
-    public static String fileToString(String filename) {
+    public static String fileToString(String filename) throws Exception {
         String string = "";
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(filename));
-            StringBuilder sb = new StringBuilder();
-            String line = br.readLine();
-            if (line.isEmpty()){
-                throw new IOException();
-            }
-            while (line != null) {
-                sb.append(line);
-                sb.append(System.lineSeparator());
-                line = br.readLine();
-            }
-            string = sb.toString();
-            br.close();
-        } catch (IOException e) {
-            catchIOException(e);
-        } catch (NullPointerException e) {
-            catchNullPointerException();
+        BufferedReader br = new BufferedReader(new FileReader(filename));
+        StringBuilder sb = new StringBuilder();
+        String line = br.readLine();
+        if (line.isEmpty()){
+            throw new InputMatrixException();
         }
+        while (line != null) {
+            sb.append(line);
+            sb.append(System.lineSeparator());
+            line = br.readLine();
+        }
+        string = sb.toString();
+        br.close();
         return string;
     }
 
@@ -72,37 +64,13 @@ public class IOStreamer {
      * extra data to the file.
      * @param filename - name of the output file.
      * @param outStrings - string with all information about graph.
+     * @throws IOException
      */
-    public static void infoAboutGraphToFile(String filename, ArrayList<String> outStrings) {
-        try {
+    public static void infoAboutGraphToFile(String filename, ArrayList<String> outStrings) throws Exception {
             PrintWriter printWriter = new PrintWriter(filename);
             for (String line : outStrings) {
                 printWriter.print(line);
             }
             printWriter.close();
-        } catch (IOException e) {
-            catchIOException(e);
-        }
     }
-
-    /**
-     * Catches IOException.
-     * @param e - IOException.
-     */
-    private static void catchIOException(IOException e) {
-        System.out.println(e.getMessage());
-        System.out.println(WRONG_INPUT_FILE);
-        System.exit(0);
-    }
-
-    /**
-     * Catches NullPointerException.
-     */
-    private static void catchNullPointerException() {
-        System.out.println(WRONG_INPUT_FILE);
-        Launcher.printHelp();
-        System.exit(0);
-    }
-
-
 }

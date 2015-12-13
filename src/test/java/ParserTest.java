@@ -21,7 +21,7 @@ public class ParserTest {
      * Setting up unit tests.
      */
     @Before
-    public void setUp() {
+    public void setUp() throws Exception{
         parser = new Parser(IOStreamer.fileToString("src\\\\test\\\\java\\\\testInput.txt"));
         parser.removeExtraSpaces();
     }

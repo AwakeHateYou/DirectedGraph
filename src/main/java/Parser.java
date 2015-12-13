@@ -82,7 +82,12 @@ public class Parser {
      *                     NumberFormatException.
      */
     private int readVertexAmount() throws Exception {
-        return Integer.valueOf(stringToStringArray(source)[0].trim().replace("\\s+", " "));
+        int amount = Integer.valueOf(stringToStringArray(source)[0].trim().replace("\\s+", " "));
+        if (amount > 0){
+            return amount;
+        }else{
+            throw new NotARealNumberException();
+        }
     }
 
     /**

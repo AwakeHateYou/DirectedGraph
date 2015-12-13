@@ -71,6 +71,9 @@ public class Launcher {
             if (e instanceof InputMatrixException){
                 catchInputMatrixExceprion((InputMatrixException) e);
             }
+            if (e instanceof NotARealNumberException){
+                catchNotARealNumberExceprion((NotARealNumberException) e);
+            }
         }
     }
 
@@ -107,6 +110,11 @@ public class Launcher {
         System.exit(0);
     }
     private static void catchInputMatrixExceprion(InputMatrixException e){
+        System.out.println(e.getMessage());
+        Launcher.printHelp();
+        System.exit(0);
+    }
+    private static void catchNotARealNumberExceprion(NotARealNumberException e){
         System.out.println(e.getMessage());
         Launcher.printHelp();
         System.exit(0);
