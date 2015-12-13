@@ -1,6 +1,3 @@
-import javafx.util.Pair;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
-
 import java.util.ArrayList;
 
 /**
@@ -12,8 +9,8 @@ import java.util.ArrayList;
  *
  * Full name of the class: Directed graph.
  * Class description:    Class for working with graph.
- *                       It's can generate service matrix, and write all information
- *                       in to ArrayList<String>.
+ *                       It's can generate service matrix, and calculate and throw all
+ *                       information about graph.
  * @author Eveny Terentyev.
  * Group: IVT-42BO.
  */
@@ -33,17 +30,17 @@ public class Graph {
     final static double EPSILON =  1E-5;
 
     /**
-     * Get out strings.
-     * @return - out strings.
+     * Get Amount Lines Connected Vector.
+     * @return - Amount Lines Connected Vector.
      */
-    public int[] getAmoountLinesConnectedVector() {
-        return amoountLinesConnectedVector;
+    public int[] getAmountLinesConnectedVertex() {
+        return amountLinesConnectedVector;
     }
 
     /**
-     * Out strings.
+     * Amount Lines Connected Vector.
      */
-    private int[] amoountLinesConnectedVector;
+    private int[] amountLinesConnectedVector;
 
     /**
      * Getter for distance matrix.
@@ -53,6 +50,18 @@ public class Graph {
         return distance;
     }
 
+    /**
+     * Get list with paths.
+     * @return list with paths.
+     */
+    public ArrayList<ArrayList<Integer>> getPaths() {
+        return paths;
+    }
+
+    /**
+     * List with paths.
+     */
+    private ArrayList<ArrayList<Integer>> paths = new ArrayList<ArrayList<Integer>>();
     /**
      * Getter for parents matrix.
      * @return - parents matrix.
@@ -104,15 +113,15 @@ public class Graph {
     /**
      * Create directed graph
      * from Adjacency matrix
-     * @param sourse - list of source string.
+     * @param source - list of source string.
      */
-    private void buildFromSource(String[] sourse) {
+    private void buildFromSource(String[] source) {
         int j = 0;
         matrix = new String[size][size];
         distance = new double[size][size];
         parents = new int[size][size];
         for (int i = 1; i <= size; i++) {
-            String[] splitLine = sourse[i].split(" ");
+            String[] splitLine = source[i].split(" ");
             if (j < size) {
                 for (int k = 0; k < size; k++) {
                     this.matrix[j][k] = splitLine[k];
@@ -124,7 +133,7 @@ public class Graph {
 
     /**
      * Print graph to the console.
-     * @param matrix - matrix with graph.
+     * @param matrix matrix with graph.
      */
     public void printGraph(String[][] matrix) {
         for (int i = 0; i < size; i++) {
@@ -138,8 +147,8 @@ public class Graph {
 
     /**
      * Calculate amount of lines
-     * in directed graph and write to ArrayList.
-     * @return - amount of lines.
+     * in directed graph.
+     * @return amount of lines.
      */
     public int calculateAmountLines() throws Exception{
         int amount = 0;
@@ -160,17 +169,17 @@ public class Graph {
      */
     public int[] calculateAmountLinesConnectedToVertex(){
         int amount = 0;
-        amoountLinesConnectedVector = new int[size];
+        amountLinesConnectedVector = new int[size];
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 if (matrix[j][i].equals("-")){
                     amount++;
                 }
             }
-            amoountLinesConnectedVector[i] = (size-amount);
+            amountLinesConnectedVector[i] = (size-amount);
             amount = 0;
         }
-        return amoountLinesConnectedVector;
+        return amountLinesConnectedVector;
     }
 
     /**
@@ -213,7 +222,7 @@ public class Graph {
      * @throws NumberFormatException
      */
     public void generateInfoAboutDirectedGraph() throws Exception{
-        printGraph(matrix);
+        //printGraph(matrix);
         prepareAdjacencyMatrix();
         amountLines = calculateAmountLines();
         calculateAmountLinesConnectedToVertex();
@@ -230,21 +239,26 @@ public class Graph {
             for (int finish = 0; finish < size; ++finish) {
                 if (start != finish) {
                     if (distance[start][finish] < INFINITY) {
-                       // outString.add("Путь из " + String.valueOf(start + 1)+ " в " + String.valueOf(finish + 1) + " =");
+                        ArrayList<Integer> pathForVertex = new ArrayList<Integer>();
+                        pathForVertex.add(start + 1);
+                        pathForVertex.add(finish + 1);
+                        path(finish, start, pathForVertex);
+                        paths.add(pathForVertex);
 
-                        path(finish, start);
-                        //outString.add("\n");
-
-                    } else
-                        ;
-                       // outString.add("Пути из " + String.valueOf(start + 1) + " в " + String.valueOf(finish + 1) + " нет\n");
+                    } else {
+                        ArrayList<Integer> pathForVertex = new ArrayList<Integer>();
+                        pathForVertex.add(-1);
+                        pathForVertex.add(start + 1);
+                        pathForVertex.add(finish + 1);
+                        paths.add(pathForVertex);
+                    }
                 }
             }
         }
     }
 
     /**
-     * Create distence and parents matrix from source matrix.
+     * Create distance and parents matrix from source matrix.
      * Need fo Floyd algorithm.
      */
     private void algorithmFloyd(){
@@ -265,16 +279,16 @@ public class Graph {
      * @param vertex - final position
      * @param start - start position
      */
-    void path(int vertex, int start)
+    void path(int vertex, int start, ArrayList<Integer> pathForVertex)
     {
         if (vertex == start)
         {
-            //outString.add(" " + String.valueOf(vertex + 1));
+            pathForVertex.add(vertex + 1);
         }
         else
         {
-            path(parents[start][vertex], start);
-            //outString.add(" " + String.valueOf(vertex + 1));
+            path(parents[start][vertex], start, pathForVertex);
+            pathForVertex.add(vertex + 1);
         }
     }
 }

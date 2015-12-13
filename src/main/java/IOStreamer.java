@@ -1,5 +1,3 @@
-import javafx.util.Pair;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -55,11 +53,12 @@ public class IOStreamer {
      * to console.
      * @param graph - directed graph.
      */
-    public static void infoAboutGraphToConsole(Graph graph) {
-        System.out.format("Количество дуг = %d\n", graph.getAmountLines());
-        for (int i = 0; i < graph.getAmoountLinesConnectedVector().length; i++){
-            System.out.format("Количество дуг, входящих в %d = %d\n", (i + 1), graph.getAmoountLinesConnectedVector()[i]);
-        }
+    public static void infoAboutGraphToConsole(Graph graph) throws Exception{
+        PrintWriter printWriter = new PrintWriter(System.out, true);
+        printAmountLines(printWriter, graph);
+        printAmountLinesConnectedVector(printWriter, graph);
+        printShortestPaths(printWriter, graph);
+        printWriter.close();
     }
 
     /**
@@ -70,10 +69,51 @@ public class IOStreamer {
      * @throws IOException
      */
     public static void infoAboutGraphToFile(String filename, Graph graph) throws Exception {
-//            PrintWriter printWriter = new PrintWriter(filename);
-//            for (String line : outStrings) {
-//                printWriter.print(line);
-//            }
-//            printWriter.close();
+            PrintWriter printWriter = new PrintWriter(filename);
+            printAmountLines(printWriter, graph);
+            printAmountLinesConnectedVector(printWriter, graph);
+            printShortestPaths(printWriter, graph);
+            printWriter.close();
+    }
+
+    /**
+     * Print amount of lines to the stream.
+     * @param printWriter stream
+     * @param graph directed graph
+     * @throws Exception IOException
+     */
+    private static void printAmountLines(PrintWriter printWriter, Graph graph) throws Exception{
+        printWriter.print("Количество дуг = " + graph.getAmountLines() + "\n");
+    }
+    /**
+     * Print amount of lines connected to vector to the stream.
+     * @param printWriter stream
+     * @param graph directed graph
+     * @throws Exception IOException
+     */
+    private static void printAmountLinesConnectedVector(PrintWriter printWriter, Graph graph) throws Exception{
+        for (int i = 0; i < graph.getAmountLinesConnectedVertex().length; i++){
+            printWriter.print("Количество дуг, входящих в " + (i + 1) + " = " + graph.getAmountLinesConnectedVertex()[i] + "\n");
+        }
+    }
+    /**
+     * Print shortest paths.
+     * @param printWriter stream
+     * @param graph directed graph
+     * @throws Exception IOException
+     */
+    private static void printShortestPaths(PrintWriter printWriter, Graph graph) throws Exception{
+        for (ArrayList<Integer> intList : graph.getPaths()){
+            if (intList.get(0) != -1) {
+                printWriter.print("Путь из " + intList.get(0) + " в " +  intList.get(1) + ":");
+                for (int i = 2; i < intList.size(); i++) {
+                    printWriter.print(" " + intList.get(i));
+                }
+                printWriter.println();
+            }else{
+                printWriter.print("Пути из " + intList.get(1) + " в " + intList.get(2) + " нет\n");
+            }
+        }
     }
 }
+
