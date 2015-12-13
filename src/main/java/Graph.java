@@ -98,16 +98,14 @@ public class Graph {
         matrix = new String[size][size];
         distance = new double[size][size];
         parents = new int[size][size];
-        for (String line : sourse) {
-            String[] splitLine = line.split(" ");
-            if (splitLine.length >= size) {
-                if (j < size) {
-                    for (int i = 0; i < size; i++) {
-                        this.matrix[j][i] = splitLine[i];
-                    }
+        for (int i = 1; i <= size; i++) {
+            String[] splitLine = sourse[i].split(" ");
+            if (j < size) {
+                for (int k = 0; k < size; k++) {
+                    this.matrix[j][k] = splitLine[k];
                 }
-                j++;
             }
+            j++;
         }
     }
 
@@ -167,19 +165,21 @@ public class Graph {
     /**
      * Convert matrix from string to double
      * replace i = j elements to 0 and "-" value to Integer.MAX_VALUE/2
-     * @throws NumberFormatException
+     * @throws NumberFormatException, NotARealNumberException
      */
     public void prepareAdjacencyMatrix() throws Exception {
         for (int i = 0; i < size; ++i) {
             for (int j = 0; j < size; ++j) {
-                if (i == j) {
-                    distance[i][j] = 0;
+                if (matrix[i][j].equals("-")) {
+                    distance[i][j] = INFINITY;
                 }else {
-                    if (matrix[i][j].equals("-")) {
-                        distance[i][j] = INFINITY;
-                    } else {
-                        distance[i][j] = Double.parseDouble(matrix[i][j]);
+                    distance[i][j] = Double.parseDouble(matrix[i][j]);
+                    if (distance[i][j] <= 0){
+                        throw new NotARealNumberException();
+                    } else if (i == j){
+                        distance[i][j] = 0;
                     }
+
                 }
                 parents[i][j] = i;
             }
@@ -202,7 +202,7 @@ public class Graph {
      * @throws NumberFormatException
      */
     public void generateInfoAboutDirectedGraph() throws Exception{
-        //printGraph(matrix);
+        printGraph(matrix);
         prepareAdjacencyMatrix();
         calculateAmountLines();
         calculateAmountLinesConnectedToVertex();
