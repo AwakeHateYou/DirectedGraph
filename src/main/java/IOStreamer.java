@@ -26,8 +26,6 @@ import java.util.ArrayList;
 public class IOStreamer {
     /** String with wrong input file error message. */
     public static final String WRONG_INPUT_FILE = "Wrong format of the input file.";
-    /** String with file is empty error message. */
-    public static final String EMPTY_FILE = "File is empty.";
     /**
      * Gets filename and returns contents
      * of the file.

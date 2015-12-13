@@ -115,7 +115,7 @@ public class Graph {
      * Print graph to the console.
      * @param matrix - matrix with graph.
      */
-    public void printGraph(double[][] matrix) {
+    public void printGraph(String[][] matrix) {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 System.out.print(matrix[i][j] + " ");
@@ -202,6 +202,7 @@ public class Graph {
      * @throws NumberFormatException
      */
     public void generateInfoAboutDirectedGraph() throws Exception{
+        //printGraph(matrix);
         prepareAdjacencyMatrix();
         calculateAmountLines();
         calculateAmountLinesConnectedToVertex();

@@ -25,7 +25,7 @@ public class Launcher {
      * Called when the output is made in the console.
      * @param input - string with input filename.
      */
-    public Launcher(String input){
+    public Launcher(String input) throws Exception{
         IOStreamer.infoAboutGraphToConsole(buildNewGraph(input));
     }
     /**
@@ -34,7 +34,7 @@ public class Launcher {
      * @param input - string with input filename.
      * @param output - string with output filename.
      */
-    public Launcher(String input, String output){
+    public Launcher(String input, String output) throws Exception{
         IOStreamer.infoAboutGraphToFile(output, buildNewGraph(input));
 
     }
@@ -49,31 +49,19 @@ public class Launcher {
      * @param args - input arguments.
      */
     public static void main(String args[]){
-        switch(args.length) {
-            case 1:
-                new Launcher(args[0]);
-                break;
-            case 2:
-                new Launcher(args[0], args[1]);
-                break;
-            default:
-                printHelp();
-                return;
-        }
-    }
-
-    /**
-     * Parse input file and builds new graph and his main information.
-     * @param input - string with input filename.
-     * @return - directed graph.
-     */
-    private ArrayList<String> buildNewGraph(String input) {
-        Parser parser = new Parser(IOStreamer.fileToString(input));
         try {
-            parser.parseString();
-            graph = new Graph(parser.getLinesSource(), parser.getVertexAmount());
-            graph.generateInfoAboutDirectedGraph();
-        } catch (Exception e) {
+            switch (args.length) {
+                case 1:
+                    new Launcher(args[0]);
+                    break;
+                case 2:
+                    new Launcher(args[0], args[1]);
+                    break;
+                default:
+                    printHelp();
+                    return;
+            }
+        }catch (Exception e){
             if (e instanceof NumberFormatException) {
                 catchNumberFormatException((NumberFormatException) e);
             }
@@ -84,6 +72,18 @@ public class Launcher {
                 catchInputMatrixExceprion((InputMatrixException) e);
             }
         }
+    }
+
+    /**
+     * Parse input file and builds new graph and his main information.
+     * @param input - string with input filename.
+     * @return - directed graph.
+     */
+    private ArrayList<String> buildNewGraph(String input) throws Exception {
+        Parser parser = new Parser(IOStreamer.fileToString(input));
+        parser.parseString();
+        graph = new Graph(parser.getLinesSource(), parser.getVertexAmount());
+        graph.generateInfoAboutDirectedGraph();
         return graph.getOutString();
     }
 
@@ -91,7 +91,7 @@ public class Launcher {
      * Catches NumberFormatException.
      * @param e - NumberFormatException.
      */
-    private void catchNumberFormatException(NumberFormatException e) {
+    private static void catchNumberFormatException(NumberFormatException e) {
         System.out.println(e.getMessage());
         System.out.println(WRONG_INPUT_FILE);
         Launcher.printHelp();
